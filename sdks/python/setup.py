@@ -23,17 +23,15 @@ import shutil
 import subprocess
 import sys
 import warnings
+
 # Pylint and isort disagree here.
 # pylint: disable=ungrouped-imports
-from importlib.metadata import PackageNotFoundError
-from importlib.metadata import distribution
+from importlib.metadata import PackageNotFoundError, distribution
 from pathlib import Path
 
 # pylint: disable=ungrouped-imports
 import setuptools
-from pkg_resources import normalize_path
-from pkg_resources import parse_version
-from pkg_resources import to_filename
+from pkg_resources import normalize_path, parse_version, to_filename
 from setuptools import Command
 
 # pylint: disable=wrong-import-order
@@ -350,7 +348,10 @@ if __name__ == '__main__':
           # using older version of dill. It is best to use the same version of
           # dill on client and server, therefore list of allowed versions is
           # very narrow. See: https://github.com/uqfoundation/dill/issues/341.
-          'dill>=0.3.1.1,<0.3.2',
+          # 'dill>=0.3.1.1,<0.3.2',
+          # Set dill to 0.3.6 based on the advice here: 
+          # https://github.com/apache/beam/issues/22893#issuecomment-1908698847
+          'dill==0.3.6',
           # It is prudent to use the same version of pickler at job submission
           # and at runtime, therefore bounds need to be tight.
           # To avoid depending on an old dependency, update the minor version on
